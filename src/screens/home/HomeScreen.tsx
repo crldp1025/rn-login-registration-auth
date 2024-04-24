@@ -1,12 +1,51 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Text from '../../components/Text';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '../../components/Button';
+import colors from '../../themes/colors';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const HomeScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  
   return (
-    <>
-      <Text>Home Screen</Text>
-    </>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.innerContainer}>
+        <Text style={styles.header}>
+          Welcome
+        </Text>
+        <Text style={styles.subHeader}>
+          Carlo Papolonias
+        </Text>
+      </View>
+      <View>
+        <Button>Sign Out</Button>
+      </View>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 20
+  },
+  innerContainer: {
+    flex: 1
+  },
+  header: {
+    fontSize: 40,
+    fontWeight: '600',
+    color: colors.primary
+  },
+  subHeader: {
+    fontSize: 30,
+    fontWeight: '500',
+    color: colors.lightRed
+  }
+});
 
 export default HomeScreen;
