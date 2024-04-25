@@ -1,6 +1,7 @@
 # Login, Registration and Authentication Mobile Application
 
 This is project demonstrates user login, registration and authentication, created with [**React Native**](https://reactnative.dev) and Typescript.
+<p>This is just a  visual representation. You can still navigate between screens but there are no functions yet. I'm still developing the Rest API for this mobile app. I will include here the repository of the API once it's done. </p>
 
 # Screenshots
 <img src="./src/assets/images/ios-login.png" width="200" />
