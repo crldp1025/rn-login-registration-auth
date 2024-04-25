@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { FormContainer, FormFooter, FormRow, FormTitle, FormView } from '../Form';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { IRegistrationProps } from '../../interfaces/Registration';
 import TextInput from '../TextInput';
 import Button from '../Button';
 import Text from '../Text';
 import { StyleSheet } from 'react-native';
 import colors from '../../themes/colors';
+import { IUserRegistrationProps } from '../../interfaces/User';
 
-const initialState: IRegistrationProps = {
+const initialState: IUserRegistrationProps = {
   email: '',
   password: '',
   rePassword: '',
@@ -19,7 +19,7 @@ const initialState: IRegistrationProps = {
 
 const RegistrationForm = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const [registrationForm, setRegistrationForm] = useState<IRegistrationProps>(initialState);
+  const [registrationForm, setRegistrationForm] = useState<IUserRegistrationProps>(initialState);
 
   return (
     <FormContainer>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Button from '../Button';
 import TextInput from '../TextInput';
-import { ILoginProps } from '../../interfaces/Login';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FormContainer, FormFooter, FormRow, FormTitle, FormView } from '../Form';
+import { IUserLoginProps } from '../../interfaces/User';
 
 const LoginForm = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const [loginForm, setLoginForm] = useState<ILoginProps>({email: '', password: ''});
+  const [loginForm, setLoginForm] = useState<IUserLoginProps>({email: '', password: ''});
 
   return (
     <FormContainer>

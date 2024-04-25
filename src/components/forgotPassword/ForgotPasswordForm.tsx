@@ -4,6 +4,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import TextInput from '../TextInput';
 import Button from '../Button';
+import Text from '../Text';
 
 const ForgotPasswordForm = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
