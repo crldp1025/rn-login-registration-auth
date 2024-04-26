@@ -6,7 +6,8 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     registration: registrationReducer
-  }
+  },
+  middleware: (getDefaultMiddleWare) => getDefaultMiddleWare({ serializableCheck: false })
 });
 
 export type RootState = ReturnType<typeof store.getState>;

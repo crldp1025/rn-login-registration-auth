@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormContainer, FormFooter, FormRow, FormTitle, FormView } from '../Form';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import TextInput from '../TextInput';
 import Button from '../Button';
 import Text from '../Text';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import colors from '../../themes/colors';
 import { IUserRegistrationProps } from '../../interfaces/User';
+import { useAppDispatch, useAppSelector } from '../../tools/hooks';
+import { clearRegistrationForm, registerUser } from '../../state/registration/registrationSlice';
 
 const initialState: IUserRegistrationProps = {
   email: '',
@@ -20,6 +22,30 @@ const initialState: IUserRegistrationProps = {
 const RegistrationForm = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const [registrationForm, setRegistrationForm] = useState<IUserRegistrationProps>(initialState);
+  const { loading, status, error } = useAppSelector((state) => state.registration);
+  const dispatch = useAppDispatch();
+
+  const handleOnSubmit = () => {
+    dispatch(registerUser(registrationForm));
+  };
+
+  useEffect(() => {
+    if(!loading && status === 'failed' && error !== undefined) {
+      Alert.alert('Registration Failed!', error, [
+        {text: 'OK'}
+      ]);
+    } else if(!loading && status === 'success' && error === undefined) {
+      Alert.alert('Registration Success!', 'You have successfully created your account.', [
+        {text: 'OK', onPress: () => navigation.navigate('Login')}
+      ]);
+    }
+  }, [loading, status, error]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearRegistrationForm())
+    };
+  }, []);
 
   return (
     <FormContainer>
@@ -28,40 +54,48 @@ const RegistrationForm = () => {
         <FormRow>
           <TextInput
             value={registrationForm.email}
-            placeholder='Email Address'
+            placeholder='Email Address*'
             autoCapitalize='none'
-            onChangeText={text => setRegistrationForm({...registrationForm, email: text})} />
+            onChangeText={text => setRegistrationForm({...registrationForm, email: text})}
+            editable={!loading} />
         </FormRow>
         <FormRow>
           <TextInput 
             value={registrationForm.password}
-            placeholder='Password'
+            placeholder='Password*'
             autoCapitalize='none'
             secureTextEntry={true}
-            onChangeText={text => setRegistrationForm({...registrationForm, password: text})} />
+            onChangeText={text => setRegistrationForm({...registrationForm, password: text})}
+            editable={!loading} />
         </FormRow>
         <FormRow>
           <TextInput 
             value={registrationForm.rePassword}
-            placeholder='Retype Password'
+            placeholder='Retype Password*'
             autoCapitalize='none'
             secureTextEntry={true}
-            onChangeText={text => setRegistrationForm({...registrationForm, rePassword: text})} />
+            onChangeText={text => setRegistrationForm({...registrationForm, rePassword: text})}
+            editable={!loading} />
         </FormRow>
         <FormRow>
           <TextInput
             value={registrationForm.firstName}
-            placeholder='First name'
-            onChangeText={text => setRegistrationForm({...registrationForm, firstName: text})} />
+            placeholder='First name*'
+            onChangeText={text => setRegistrationForm({...registrationForm, firstName: text})}
+            editable={!loading} />
         </FormRow>
         <FormRow>
           <TextInput
             value={registrationForm.lastName}
-            placeholder='Last name'
-            onChangeText={text => setRegistrationForm({...registrationForm, lastName: text})} />
+            placeholder='Last name*'
+            onChangeText={text => setRegistrationForm({...registrationForm, lastName: text})}
+            editable={!loading} />
         </FormRow>
         <FormRow style={{marginTop: 10}}>
-          <Button color='secondary'>
+          <Button 
+            color='secondary'
+            onPress={() =>handleOnSubmit()}
+            loading={loading}>
             Create Account
           </Button>
         </FormRow>
@@ -69,7 +103,8 @@ const RegistrationForm = () => {
       <FormFooter>
         <Text style={styles.footerText}>Already have an account?</Text>
         <Button
-          onPress={() => navigation.navigate('Login')}>
+          onPress={() => navigation.navigate('Login')}
+          disabled={loading}>
           Sign In
         </Button>
       </FormFooter>

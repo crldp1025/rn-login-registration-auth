@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle, TextStyle as RNTextStyle } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle, TextStyle as RNTextStyle, ActivityIndicator } from 'react-native';
 import colors from '../themes/colors';
 import Text from './Text';
 
@@ -10,6 +10,7 @@ interface IButtonProps extends TouchableOpacityProps {
   type?: ButtonTypeProps;
   color?: ButtonColorProps | string;
   textStyle?: TextStyle;
+  loading?: boolean;
 }
 
 const buttonColor = {
@@ -21,6 +22,7 @@ const Button = ({
   type = 'solid', 
   color = 'primary', 
   textStyle, 
+  loading = false,
   children, 
   style, 
   ...props 
@@ -76,11 +78,18 @@ const Button = ({
   return (
     <TouchableOpacity
       style={buttonStyle}
+      disabled={loading}
       {...props}>
-      <Text
-        style={buttonTextStyle}>
-        {children}
-      </Text>
+      {!loading &&
+        <Text
+          style={buttonTextStyle}>
+          {children}
+        </Text>
+      }
+      {loading && 
+        <ActivityIndicator color={colors.primary} />
+      }
+        
     </TouchableOpacity>
   );
 };
