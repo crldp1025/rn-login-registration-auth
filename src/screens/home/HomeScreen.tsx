@@ -1,14 +1,30 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import Text from '../../components/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
 import colors from '../../themes/colors';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useAppDispatch } from '../../tools/hooks';
+import { logoutUser } from '../../state/auth/authSlice';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const dispatch = useAppDispatch();
+
+  const handleOnPressSignOut = () => {
+    Alert.alert('Sign Out', 'Are you sure you want to sign out your account?', [
+      {
+        text: 'Confirm',
+        onPress: () =>  dispatch(logoutUser())
+      },
+      {
+        text: 'Cancel',
+        style: 'destructive'
+      }
+    ]);
+  }
   
   return (
     <SafeAreaView style={styles.container}>
@@ -21,7 +37,10 @@ const HomeScreen = () => {
         </Text>
       </View>
       <View>
-        <Button>Sign Out</Button>
+        <Button
+          onPress={() => handleOnPressSignOut()}>
+          Sign Out
+        </Button>
       </View>
     </SafeAreaView>
   );
