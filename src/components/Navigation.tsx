@@ -7,6 +7,7 @@ import RegistrationScreen from '../screens/registration/RegistrationScreen';
 import HomeScreen from '../screens/home/HomeScreen';
 import { useAppDispatch, useAppSelector } from '../tools/hooks';
 import { authenticateUser } from '../state/auth/authSlice';
+import Loader from './Loader';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,13 +46,6 @@ const Navigation = () => {
   const { loading, user, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  // React.useEffect(() => {
-  //   console.log('loading', loading)
-  //   console.log('user', user)
-  //   console.log('error', error)
-  //   console.log();
-  // }, [loading, user, error])
-
   useEffect(() => {
     dispatch(authenticateUser());
   }, []);
@@ -63,6 +57,9 @@ const Navigation = () => {
       }
       {!loading && !user &&
         <UnauthenticatedRoutes />
+      }
+      {loading &&
+        <Loader />
       }
     </NavigationContainer>
   );
