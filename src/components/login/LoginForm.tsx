@@ -14,12 +14,6 @@ const LoginForm = () => {
   const { loading } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(clearLoginForm());
-  //   };
-  // }, []);
-
   return (
     <FormContainer>
       <FormView>
@@ -41,17 +35,10 @@ const LoginForm = () => {
             onChangeText={text => setLoginForm({...loginForm, password: text})}
             editable={!loading} />
         </FormRow>
-        {/* <Button 
-          type='clear' 
-          color='secondary'
-          onPress={() => navigation.navigate('ForgotPassword')}>
-          Forgot Password?
-        </Button> */}
         <FormRow style={{marginTop: 10}}>
           <Button 
             color='secondary' 
             onPress={() => dispatch(loginUser(loginForm))}
-            loading={loading}
           >
             Login
           </Button>
@@ -60,7 +47,6 @@ const LoginForm = () => {
       <FormFooter>
         <Button 
           onPress={() => navigation.navigate('Registration')}
-          disabled={loading}
         >
           Create your Account
         </Button>

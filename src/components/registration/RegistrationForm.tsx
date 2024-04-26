@@ -94,8 +94,7 @@ const RegistrationForm = () => {
         <FormRow style={{marginTop: 10}}>
           <Button 
             color='secondary'
-            onPress={() =>handleOnSubmit()}
-            loading={loading}>
+            onPress={() =>handleOnSubmit()}>
             Create Account
           </Button>
         </FormRow>
@@ -103,8 +102,7 @@ const RegistrationForm = () => {
       <FormFooter>
         <Text style={styles.footerText}>Already have an account?</Text>
         <Button
-          onPress={() => navigation.navigate('Login')}
-          disabled={loading}>
+          onPress={() => navigation.navigate('Login')}>
           Sign In
         </Button>
       </FormFooter>

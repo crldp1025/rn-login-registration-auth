@@ -8,6 +8,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAppDispatch } from '../../tools/hooks';
 import { logoutUser } from '../../state/auth/authSlice';
+import Loader from '../../components/Loader';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -27,22 +28,24 @@ const HomeScreen = () => {
   }
   
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text style={styles.header}>
-          Welcome
-        </Text>
-        <Text style={styles.subHeader}>
-          Carlo Papolonias
-        </Text>
-      </View>
-      <View>
-        <Button
-          onPress={() => handleOnPressSignOut()}>
-          Sign Out
-        </Button>
-      </View>
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.innerContainer}>
+          <Text style={styles.header}>
+            Welcome
+          </Text>
+          <Text style={styles.subHeader}>
+            Carlo Papolonias
+          </Text>
+        </View>
+        <View>
+          <Button
+            onPress={() => handleOnPressSignOut()}>
+            Sign Out
+          </Button>
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

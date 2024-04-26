@@ -29,7 +29,7 @@ const Container = ({children, style, ...props}: IContainerProps) => {
       <LinearGradient colors={[colors.primary, colors.lightRed]} style={{flex: 1}}>
         <Round 
           radius={500} 
-          outerColor='#c73838' 
+          outerColor={colors.red} 
           innerColor={colors.primary}
           style={{
             position: 'absolute',
