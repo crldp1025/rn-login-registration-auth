@@ -6,13 +6,22 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FormContainer, FormFooter, FormRow, FormTitle, FormView } from '../Form';
 import { IUserLoginProps } from '../../interfaces/User';
 import { useAppDispatch, useAppSelector } from '../../tools/hooks';
-import { authenticateUser, clearLoginForm, loginUser } from '../../state/auth/authSlice';
+import { loginUser } from '../../state/auth/authSlice';
+import { Alert } from 'react-native';
 
 const LoginForm = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const [loginForm, setLoginForm] = useState<IUserLoginProps>({email: '', password: ''});
-  const { loading } = useAppSelector((state) => state.auth);
+  const { loading, user, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(!loading && !user && error) {
+      Alert.alert('Login Failed!', error, [
+        {text: 'OK'}
+      ])
+    }
+  }, [loading, user, error]);
 
   return (
     <FormContainer>

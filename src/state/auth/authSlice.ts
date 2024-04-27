@@ -105,20 +105,8 @@ const authSlice = createSlice({
       })
       .addMatcher(isAnyOf(loginUser.rejected, authenticateUser.rejected, logoutUser.rejected), (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = (action.type !== 'auth/user/rejected') ? action.payload as string : undefined;
       });
-      // .addCase(clearLoginForm, () => initialState);
-      // .addCase(login.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // .addCase(login.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.user = action.payload;
-      // })
-      // .addCase(login.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload as string;
-      // })
   },
   reducers: {
     clearLoginForm: () => initialState

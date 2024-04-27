@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     width: '100%', 
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    paddingVertical: 15
   }
 });

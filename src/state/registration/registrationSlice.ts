@@ -43,16 +43,16 @@ const registrationSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.status = 'success';
+        state.error = undefined;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.status = 'failed';
         state.error = action.payload as string;
-      })
-      .addCase(clearRegistrationForm, () => initialState);
+      });
   },
   reducers: {
-    // clearRegistrationForm: () => initialState
+    clearRegistrationForm: () => initialState
   }
 });
 

@@ -8,7 +8,6 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAppDispatch } from '../../tools/hooks';
 import { logoutUser } from '../../state/auth/authSlice';
-import Loader from '../../components/Loader';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -17,12 +16,12 @@ const HomeScreen = () => {
   const handleOnPressSignOut = () => {
     Alert.alert('Sign Out', 'Are you sure you want to sign out your account?', [
       {
-        text: 'Confirm',
-        onPress: () =>  dispatch(logoutUser())
-      },
-      {
         text: 'Cancel',
         style: 'destructive'
+      },
+      {
+        text: 'Confirm',
+        onPress: () =>  dispatch(logoutUser())
       }
     ]);
   }
@@ -38,7 +37,7 @@ const HomeScreen = () => {
             Carlo Papolonias
           </Text>
         </View>
-        <View>
+        <View style={styles.footer}>
           <Button
             onPress={() => handleOnPressSignOut()}>
             Sign Out
@@ -67,6 +66,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '500',
     color: colors.lightRed
+  },
+  footer: {
+    paddingVertical: 15
   }
 });
 
